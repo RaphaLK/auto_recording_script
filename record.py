@@ -5,8 +5,7 @@ from scipy.io.wavfile import write
 import numpy as np
 
 fs = 44100  # Sample rate
-record_time = 3 # Seconds
-
+recording_time = 10
 # Initialize OpenBCI
 BoardShim.enable_dev_board_logger()
 
@@ -26,17 +25,23 @@ board.start_stream()
 print("EEG recording started!")
 print("Recording...")
 
-myrecording = sd.rec(int(record_time * fs), samplerate=fs, device = 7,channels=2)
-sd.wait()  # Wait until recording is finished
+# Set Device and Channel accordingly
+myrecording = sd.rec(int(fs * recording_time), samplerate=fs, device=7,channels=2)
 
-write(f'{f_name}.wav', fs, myrecording)  # Save as WAV file
 
 # Stop EMG recording
+while(1):
+  stop = input()
+  if (stop == " "):
+    break
+  continue
+  
+sd.stop()
+write(f'{f_name}.wav', fs, myrecording)  # Save as WAV file
 data = board.get_board_data()
 board.stop_stream()
 board.release_session()
-
-np.savetxt(f"{f_name}.csv", data, delimiter=',')
-
+np.savetxt(f"{f_name}.csv", data.transpose(), delimiter=',')
 print(f"Data saved as {f_name}")
 print("Both recordings completed successfully!")
+
