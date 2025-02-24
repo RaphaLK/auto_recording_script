@@ -4,7 +4,7 @@ import sounddevice as sd
 from scipy.io.wavfile import write
 import numpy as np
 
-fs = 16000  # Sample rate
+fs = 44100  # Sample rate
 record_time = 3 # Seconds
 
 # Initialize OpenBCI
@@ -26,7 +26,7 @@ board.start_stream()
 print("EEG recording started!")
 print("Recording...")
 
-myrecording = sd.rec(int(record_time * fs), samplerate=fs, channels=1) # mono
+myrecording = sd.rec(int(record_time * fs), samplerate=fs, device = 7,channels=2)
 sd.wait()  # Wait until recording is finished
 
 write(f'{f_name}.wav', fs, myrecording)  # Save as WAV file
