@@ -1,0 +1,7 @@
+brainflow==5.16.0
+cffi==1.17.1
+numpy==2.2.3
+pycparser==2.22
+scipy==1.15.2
+setuptools==75.8.0
+sounddevice==0.5.1
