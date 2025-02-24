@@ -2,9 +2,10 @@ import time
 from brainflow.board_shim import BoardShim, BrainFlowInputParams
 import sounddevice as sd
 from scipy.io.wavfile import write
+import numpy as np
 
 fs = 16000  # Sample rate
-record_time = 12  # Seconds
+record_time = 3 # Seconds
 
 # Initialize OpenBCI
 BoardShim.enable_dev_board_logger()
@@ -30,7 +31,12 @@ sd.wait()  # Wait until recording is finished
 
 write(f'{f_name}.wav', fs, myrecording)  # Save as WAV file
 
-# Stop EEG recording
+# Stop EMG recording
+data = board.get_board_data()
 board.stop_stream()
 board.release_session()
+
+np.savetxt(f"{f_name}.csv", data, delimiter=',')
+
+print(f"Data saved as {f_name}")
 print("Both recordings completed successfully!")

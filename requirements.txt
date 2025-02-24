@@ -1,7 +1,12 @@
 brainflow==5.16.0
 cffi==1.17.1
 numpy==2.2.3
+pandas==2.2.3
 pycparser==2.22
+python-dateutil==2.9.0.post0
+pytz==2025.1
 scipy==1.15.2
 setuptools==75.8.0
+six==1.17.0
 sounddevice==0.5.1
+tzdata==2025.1
